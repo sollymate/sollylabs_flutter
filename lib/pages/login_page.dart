@@ -16,36 +16,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _redirecting = false;
   late final TextEditingController _emailController = TextEditingController();
   late final StreamSubscription<AuthState> _authStateSubscription;
-
-  Future<void> _signIn() async {
-    try {
-      setState(() => _isLoading = true);
-      await supabase.auth.signInWithOtp(
-        email: _emailController.text.trim(),
-        emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
-      );
-      if (mounted) {
-        context.showSnackBar('Check your email for a login link!');
-        _emailController.clear();
-      }
-    } on AuthException catch (error) {
-      if (mounted) context.showSnackBar(error.message, isError: true);
-    } catch (error) {
-      if (mounted) {
-        context.showSnackBar('Unexpected error occurred', isError: true);
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
 
   Future<void> _sendMagicLink(String email) async {
     try {
@@ -114,3 +88,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+// Future<void> _signIn() async {
+//   try {
+//     setState(() => _isLoading = true);
+//     await supabase.auth.signInWithOtp(
+//       email: _emailController.text.trim(),
+//       emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
+//     );
+//     if (mounted) {
+//       context.showSnackBar('Check your email for a login link!');
+//       _emailController.clear();
+//     }
+//   } on AuthException catch (error) {
+//     if (mounted) context.showSnackBar(error.message, isError: true);
+//   } catch (error) {
+//     if (mounted) {
+//       context.showSnackBar('Unexpected error occurred', isError: true);
+//     }
+//   } finally {
+//     if (mounted) {
+//       setState(() {
+//         _isLoading = false;
+//       });
+//     }
+//   }
+// }
