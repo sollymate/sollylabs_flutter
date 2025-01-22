@@ -4,7 +4,7 @@ import 'package:sollylabs_flutter/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final projectListProvider = FutureProvider<PostgrestList>((ref) async {
-  PostgrestList response = await supabase.from('project_list').select('*').order('created_at', ascending: false);
+  PostgrestList response = await supabase.from('project_list').select().order('created_at', ascending: false);
   return response;
 });
 
@@ -16,21 +16,11 @@ class ProjectListPage extends ConsumerWidget {
     final projectListAsync = ref.watch(projectListProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Projects'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _showCreateProjectDialog(context),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Projects'), actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => _showCreateProjectDialog(context))]),
       body: projectListAsync.when(
         data: (projects) {
           if (projects.isEmpty) {
-            return const Center(
-              child: Text('No projects found.'),
-            );
+            return const Center(child: Text('No projects found.'));
           }
           return ListView.builder(
             itemCount: projects.length,
@@ -110,15 +100,15 @@ class ProjectListPage extends ConsumerWidget {
   }
 
   Future<void> _createProject(String name, String info) async {
-    final response = await supabase.from('project_list').insert({
+    await supabase.from('project_list').insert({
       'project_name': name,
       'project_info': info,
       'created_by': supabase.auth.currentUser?.id,
     });
 
-    if (response.isError) {
-      throw Exception(response.message);
-    }
+    // if (response.e) {
+    //   throw Exception(response.message);
+    // }
   }
 }
 
