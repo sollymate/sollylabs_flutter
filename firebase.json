@@ -1,39 +1,5 @@
 {
-  "flutter": {
-    "platforms": {
-      "android": {
-        "default": {
-          "projectId": "sollylabs-flutter",
-          "appId": "1:315231683982:android:d33302cc700fedbfe6d0df",
-          "fileOutput": "android/app/google-services.json"
-        }
-      },
-      "dart": {
-        "lib/firebase_options.dart": {
-          "projectId": "sollylabs-flutter",
-          "configurations": {
-            "android": "1:315231683982:android:d33302cc700fedbfe6d0df",
-            "ios": "1:315231683982:ios:e94bde3dbedf3e47e6d0df",
-            "macos": "1:315231683982:ios:e94bde3dbedf3e47e6d0df",
-            "web": "1:315231683982:web:4fc907aaa629fd67e6d0df",
-            "windows": "1:315231683982:web:ab0002b152feb963e6d0df"
-          }
-        }
-      }
-    }
-  },
   "hosting": {
-    "public": "public",
-    "rewrites": [
-      {
-        "source": "/login-callback",
-        "function": "redirectToDesktopOrWeb"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
     "source": ".",
     "ignore": [
       "firebase.json",
@@ -43,21 +9,5 @@
     "frameworksBackend": {
       "region": "europe-west1"
     }
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
-    }
-  ]
+  }
 }

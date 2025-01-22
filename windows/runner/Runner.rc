@@ -89,8 +89,6 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-//            VALUE "ApplicationUserModelId", "com.sollylabs_flutter.sollylabs_flutter"
-//            VALUE "URL Protocol", "sollylabs_flutter"
             VALUE "CompanyName", "com.sollylabs_flutter" "\0"
             VALUE "FileDescription", "sollylabs_flutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"

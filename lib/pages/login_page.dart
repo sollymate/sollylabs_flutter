@@ -24,7 +24,10 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _signIn() async {
     try {
       setState(() => _isLoading = true);
-      await supabase.auth.signInWithOtp(email: _emailController.text.trim(), emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/');
+      await supabase.auth.signInWithOtp(
+        email: _emailController.text.trim(),
+        emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
+      );
       if (mounted) {
         context.showSnackBar('Check your email for a login link!');
         _emailController.clear();
@@ -46,7 +49,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _sendMagicLink(String email) async {
     try {
-      await Supabase.instance.client.auth.signInWithOtp(email: email);
+      // await Supabase.instance.client.auth.signInWithOtp(email: email);
+      await supabase.auth.signInWithOtp(
+        email: email,
+        emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
+      );
       if (mounted) Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(email: email)));
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
