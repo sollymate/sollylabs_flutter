@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "315231683982",
+    "project_id": "sollylabs-flutter",
+    "storage_bucket": "sollylabs-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315231683982:android:d33302cc700fedbfe6d0df",
+        "android_client_info": {
+          "package_name": "com.sollylabs_flutter.sollylabs_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIqOeVFiOh_gA6Fz6Q53EcdCWJTYTH61A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
