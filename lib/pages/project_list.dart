@@ -3,6 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sollylabs_flutter/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+Stream<List<Map<String, dynamic>>> getProjectListStream() {
+  return supabase.from('project_list').stream(primaryKey: ['id']).order('created_at', ascending: false);
+}
+
+final projectListStreamProvider = StreamProvider<List<Map<String, dynamic>>>((ref) => getProjectListStream());
+
 final projectListProvider = FutureProvider<PostgrestList>((ref) async {
   PostgrestList response = await supabase.from('project_list').select().order('created_at', ascending: false);
   return response;
@@ -13,7 +19,8 @@ class ProjectListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final projectListAsync = ref.watch(projectListProvider);
+    final projectListAsync = ref.watch(projectListStreamProvider);
+    // final projectListAsync = ref.watch(projectListProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Projects'), actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => _showCreateProjectDialog(context))]),
