@@ -4,6 +4,7 @@ import 'package:sollylabs_flutter/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'login_page.dart';
+import 'project_list.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -166,6 +167,8 @@ class _AccountPageState extends State<AccountPage> {
           ),
           const SizedBox(height: 18),
           TextButton(onPressed: _signOut, child: const Text('Sign Out')),
+          const SizedBox(height: 18),
+          TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProjectListPage())), child: const Text('Project List')),
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:sollylabs_flutter/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'account_page.dart';
+import 'otp_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,16 +23,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _signIn() async {
     try {
-      setState(() {
-        _isLoading = true;
-      });
-      await supabase.auth.signInWithOtp(
-        email: _emailController.text.trim(),
-        emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
-      );
+      setState(() => _isLoading = true);
+      await supabase.auth.signInWithOtp(email: _emailController.text.trim(), emailRedirectTo: kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/');
       if (mounted) {
         context.showSnackBar('Check your email for a login link!');
-
         _emailController.clear();
       }
     } on AuthException catch (error) {
@@ -46,6 +41,15 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> _sendMagicLink(String email) async {
+    try {
+      await Supabase.instance.client.auth.signInWithOtp(email: email);
+      if (mounted) Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(email: email)));
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
     }
   }
 
@@ -91,13 +95,11 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           const Text('Sign in via the magic link with your email below'),
           const SizedBox(height: 18),
-          TextFormField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
-          ),
+          TextFormField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email')),
           const SizedBox(height: 18),
           ElevatedButton(
-            onPressed: _isLoading ? null : _signIn,
+            onPressed: _isLoading ? null : () => _sendMagicLink(_emailController.text.trim()),
+            // onPressed: _isLoading ? null : _signIn,
             child: Text(_isLoading ? 'Sending...' : 'Send Magic Link'),
           ),
         ],
