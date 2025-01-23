@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sollylabs_flutter/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'project_settings.dart';
+
 Stream<List<Map<String, dynamic>>> getProjectListStream() {
   return supabase.from('project_list').stream(primaryKey: ['id']).order('created_at', ascending: false);
 }
@@ -186,17 +188,37 @@ class ProjectListPage extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () => _showEditProjectDialog(context, ref, project),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      color: Colors.red,
-                      onPressed: () => _showDeleteConfirmationDialog(context, ref, project['id']),
+                      icon: const Icon(Icons.settings),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProjectSettingsPage(projectId: project['id']),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
               );
+
+              // return ListTile(
+              //   title: Text(project['project_name']),
+              //   subtitle: Text(project['project_info'] ?? 'No additional info'),
+              //   trailing: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       IconButton(
+              //         icon: const Icon(Icons.edit),
+              //         onPressed: () => _showEditProjectDialog(context, ref, project),
+              //       ),
+              //       IconButton(
+              //         icon: const Icon(Icons.delete),
+              //         color: Colors.red,
+              //         onPressed: () => _showDeleteConfirmationDialog(context, ref, project['id']),
+              //       ),
+              //     ],
+              //   ),
+              // );
 
               // return ListTile(
               //   title: Text(project['project_name']),
