@@ -78,14 +78,14 @@ class _InviteUserDialogState extends State<InviteUserDialog> {
       // Call the backend function to send the invite
       await inviteUserToProject(widget.projectId, email, _selectedRole);
 
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Invitation sent successfully!')),
         );
         Navigator.of(context).pop();
       }
     } catch (e) {
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error sending invite: $e')),
         );

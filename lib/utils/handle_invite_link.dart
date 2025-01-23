@@ -24,5 +24,5 @@ Future<void> handleInviteLink(Uri inviteLink) async {
     throw Exception('Failed to assign user to project.');
   }
 
-  print('User successfully assigned to project: $response');
+  // print('User successfully assigned to project: $response');
 }

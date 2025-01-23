@@ -28,7 +28,7 @@ Future<void> inviteUserToProject(String projectId, String email, String role) as
       throw Exception('Failed to assign role to user: No response from Supabase.');
     }
 
-    print('User invited successfully and added to project_permissions: $response');
+    // print('User invited successfully and added to project_permissions: $response');
   } catch (e) {
     throw Exception('Error inviting user: ${e.toString()}');
   }

@@ -4,7 +4,7 @@ class EditRoleDialog extends StatelessWidget {
   final String currentRole;
   final Function(String) onRoleSelected;
 
-  const EditRoleDialog({Key? key, required this.currentRole, required this.onRoleSelected}) : super(key: key);
+  const EditRoleDialog({super.key, required this.currentRole, required this.onRoleSelected});
 
   @override
   Widget build(BuildContext context) {

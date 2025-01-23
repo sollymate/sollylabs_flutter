@@ -1,1 +1,1 @@
-{".env.production":[".env.production"],".env.staging":[".env.staging"],"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}
+{"assets/.env.production":["assets/.env.production"],"assets/.env.staging":["assets/.env.staging"],"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}

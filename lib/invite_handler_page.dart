@@ -51,7 +51,7 @@ class InviteHandlerPage extends StatelessWidget {
     }
 
     // Example logic for handling the invite link
-    print('Processing invite for projectId: $projectId with role: $role');
+    // print('Processing invite for projectId: $projectId with role: $role');
 
     // Add the user to the project_permissions table via Supabase
     final user = Supabase.instance.client.auth.currentUser;

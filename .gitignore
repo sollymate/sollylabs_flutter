@@ -43,7 +43,7 @@ app.*.map.json
 /android/app/release
 
 .env.staging
-.env.production
+assets/.env.production
 .env*
 
 # Flutter/Dart files

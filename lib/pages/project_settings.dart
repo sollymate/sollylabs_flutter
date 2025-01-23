@@ -211,7 +211,7 @@ class _InviteUserDialogState extends State<InviteUserDialog> {
       await Supabase.instance.client.auth.signInWithOtp(email: email);
 
       // Show success message
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Magic link sent successfully!')),
         );
@@ -219,7 +219,7 @@ class _InviteUserDialogState extends State<InviteUserDialog> {
       }
     } catch (e) {
       // Handle any exceptions
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error sending magic link: $e')),
         );
