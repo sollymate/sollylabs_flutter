@@ -100,6 +100,37 @@ class AuthService {
       return false;
     }
   }
+
+  // Verify current password
+  Future<bool> verifyCurrentPassword({required String password}) async {
+    try {
+      final currentUser = _supabase.auth.currentUser;
+      if (currentUser == null) {
+        return false;
+      }
+
+      // Get the user's current session
+      final currentSession = _supabase.auth.currentSession;
+      if (currentSession == null) {
+        return false;
+      }
+
+      // Re-authenticate with the current password
+      final response = await _supabase.auth.signInWithPassword(
+        email: currentUser.email,
+        password: password,
+      );
+
+      if (response.user != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      _log.severe('Error in verifyCurrentPassword', e);
+      return false;
+    }
+  }
 }
 
 // import 'package:flutter_riverpod/flutter_riverpod.dart';

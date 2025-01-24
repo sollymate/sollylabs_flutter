@@ -1,27 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:sollylabs_flutter/widgets/sign_in_dialog.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sollylabs_flutter/pages/sign_in_form.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
+  LoginPageState createState() => LoginPageState();
+}
+
+class LoginPageState extends ConsumerState<LoginPage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+    return const Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Show the sign-in dialog
-            showDialog(context: context, barrierDismissible: false, builder: (context) => const SignInDialog());
-          },
-          child: const Text('Sign In'),
-        ),
+        child: SignInForm(),
       ),
     );
   }
 }
+
+// class LoginPage extends StatelessWidget {
+//   const LoginPage({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Login'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () {
+//             // Show the sign-in dialog
+//             showDialog(context: context, barrierDismissible: false, builder: (context) => const SignInDialog());
+//           },
+//           child: const Text('Sign In'),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // import 'dart:async';
 //
