@@ -12,8 +12,8 @@ class OtpPage extends ConsumerStatefulWidget {
   const OtpPage({
     required this.email,
     this.isResetPassword = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   OtpPageState createState() => OtpPageState();
@@ -92,7 +92,8 @@ class OtpPageState extends ConsumerState<OtpPage> {
                       );
                       if (isVerified) {
                         // Refresh the auth state to trigger AuthGate rebuild
-                        ref.refresh(authStateProvider);
+                        // ref.refresh(authStateProvider);
+                        ref.invalidate(authStateProvider);
                         navigator.pop();
                         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AccountPage()));
                       } else {

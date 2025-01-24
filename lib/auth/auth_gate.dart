@@ -8,7 +8,7 @@ import 'package:sollylabs_flutter/pages/login_page.dart';
 import 'auth_state.dart';
 
 class AuthGate extends ConsumerWidget {
-  AuthGate({Key? key}) : super(key: key); // Remove const
+  AuthGate({super.key}); // Remove const
 
   final _log = Logger('AuthGate');
 

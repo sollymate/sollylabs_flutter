@@ -68,7 +68,8 @@ class ProjectSettingsPage extends ConsumerWidget {
                                     const SnackBar(content: Text('Role updated successfully')),
                                   );
                                 }
-                                ref.refresh(collaboratorsProvider(projectId));
+                                // ref.refresh(collaboratorsProvider(projectId));
+                                ref.invalidate(collaboratorsProvider(projectId));
                               } catch (e) {
                                 if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -109,7 +110,8 @@ class ProjectSettingsPage extends ConsumerWidget {
                                 const SnackBar(content: Text('Collaborator removed successfully')),
                               );
                             }
-                            ref.refresh(collaboratorsProvider(projectId));
+                            ref.invalidate(collaboratorsProvider(projectId));
+                            // ref.refresh(collaboratorsProvider(projectId));
                           } catch (e) {
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(

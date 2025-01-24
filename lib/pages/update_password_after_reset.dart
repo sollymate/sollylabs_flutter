@@ -4,13 +4,13 @@ import 'package:sollylabs_flutter/auth/auth_service.dart';
 import 'package:sollylabs_flutter/auth/auth_state.dart';
 
 class UpdatePasswordAfterResetPage extends ConsumerStatefulWidget {
-  const UpdatePasswordAfterResetPage({Key? key}) : super(key: key);
+  const UpdatePasswordAfterResetPage({super.key});
 
   @override
-  _UpdatePasswordAfterResetPageState createState() => _UpdatePasswordAfterResetPageState();
+  UpdatePasswordAfterResetPageState createState() => UpdatePasswordAfterResetPageState();
 }
 
-class _UpdatePasswordAfterResetPageState extends ConsumerState<UpdatePasswordAfterResetPage> {
+class UpdatePasswordAfterResetPageState extends ConsumerState<UpdatePasswordAfterResetPage> {
   final _formKey = GlobalKey<FormState>();
   final _newPasswordController = TextEditingController();
   final _confirmNewPasswordController = TextEditingController();
@@ -108,7 +108,8 @@ class _UpdatePasswordAfterResetPageState extends ConsumerState<UpdatePasswordAft
                       );
 
                       // Navigate to the app's home page or login page
-                      ref.refresh(authStateProvider);
+                      ref.invalidate(authStateProvider);
+                      // ref.refresh(authStateProvider);
                       navigator.popUntil((route) => route.isFirst);
                     } else {
                       messenger.showSnackBar(

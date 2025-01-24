@@ -5,13 +5,13 @@ import 'package:sollylabs_flutter/auth/auth_service.dart';
 import 'reset_password.dart';
 
 class UpdatePasswordPage extends ConsumerStatefulWidget {
-  const UpdatePasswordPage({Key? key}) : super(key: key);
+  const UpdatePasswordPage({super.key});
 
   @override
-  _UpdatePasswordPageState createState() => _UpdatePasswordPageState();
+  UpdatePasswordPageState createState() => UpdatePasswordPageState();
 }
 
-class _UpdatePasswordPageState extends ConsumerState<UpdatePasswordPage> {
+class UpdatePasswordPageState extends ConsumerState<UpdatePasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _currentPasswordController = TextEditingController(); // Add field for current password
   final _newPasswordController = TextEditingController();

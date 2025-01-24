@@ -131,12 +131,7 @@ class SignInFormState extends ConsumerState<SignInForm> with SingleTickerProvide
                       content: Text("Failed to send verification code"),
                     ));
                   } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OtpPage(email: _emailController.text),
-                      ),
-                    );
+                    if (context.mounted) Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(email: _emailController.text)));
                   }
                 }
               }

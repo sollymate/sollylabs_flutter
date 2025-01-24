@@ -4,13 +4,13 @@ import 'package:sollylabs_flutter/auth/auth_service.dart';
 import 'package:sollylabs_flutter/pages/otp_page.dart';
 
 class ResetPasswordPage extends ConsumerStatefulWidget {
-  const ResetPasswordPage({Key? key}) : super(key: key);
+  const ResetPasswordPage({super.key});
 
   @override
-  _ResetPasswordPageState createState() => _ResetPasswordPageState();
+  ResetPasswordPageState createState() => ResetPasswordPageState();
 }
 
-class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
+class ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
 
@@ -58,12 +58,7 @@ class _ResetPasswordPageState extends ConsumerState<ResetPasswordPage> {
                         email: _emailController.text,
                       );
                       // Navigate to OtpPage for OTP verification
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OtpPage(email: _emailController.text, isResetPassword: true),
-                        ),
-                      );
+                      if (context.mounted) Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(email: _emailController.text, isResetPassword: true)));
                     } catch (error) {
                       messenger.showSnackBar(
                         SnackBar(

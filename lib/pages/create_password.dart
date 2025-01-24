@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sollylabs_flutter/auth/auth_service.dart';
-import 'package:sollylabs_flutter/auth/auth_state.dart'; // Import authStateProvider
+import 'package:sollylabs_flutter/auth/auth_state.dart';
 
 class CreatePasswordPage extends ConsumerStatefulWidget {
-  const CreatePasswordPage({Key? key}) : super(key: key);
+  const CreatePasswordPage({super.key});
 
   @override
-  _CreatePasswordPageState createState() => _CreatePasswordPageState();
+  CreatePasswordPageState createState() => CreatePasswordPageState();
 }
 
-class _CreatePasswordPageState extends ConsumerState<CreatePasswordPage> {
+class CreatePasswordPageState extends ConsumerState<CreatePasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -35,7 +35,38 @@ class _CreatePasswordPageState extends ConsumerState<CreatePasswordPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // ... (TextFormFields for password and confirm password - no changes)
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  hintText: 'Enter your new password',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a password';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Confirm Password',
+                  hintText: 'Re-enter your new password',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please confirm your password';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'Passwords do not match';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
@@ -56,9 +87,8 @@ class _CreatePasswordPageState extends ConsumerState<CreatePasswordPage> {
                           content: Text('Password updated successfully!'),
                         ),
                       );
-
-                      // Refresh the auth state and navigate
-                      ref.refresh(authStateProvider);
+                      // Invalidate auth state
+                      ref.invalidate(authStateProvider);
                       navigator.pop();
                     } else {
                       messenger.showSnackBar(
