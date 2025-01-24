@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sollylabs_flutter/auth/auth_service.dart';
 
 import 'otp_page.dart';
+import 'reset_password.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -61,19 +62,7 @@ class SignInFormState extends ConsumerState<SignInForm> with SingleTickerProvide
                       key: const Key('passwordField'),
                       controller: _passwordController,
                       obscureText: !_showPassword, // Toggle obscureText
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _showPassword ? Icons.visibility : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _showPassword = !_showPassword;
-                            });
-                          },
-                        ),
-                      ),
+                      decoration: InputDecoration(labelText: 'Password', suffixIcon: IconButton(icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off), onPressed: () => setState(() => _showPassword = !_showPassword))),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
@@ -83,6 +72,22 @@ class SignInFormState extends ConsumerState<SignInForm> with SingleTickerProvide
                     ),
                   ),
                 ],
+                if (_tabController.index == 1) // Show only on the password tab
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPasswordPage()));
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

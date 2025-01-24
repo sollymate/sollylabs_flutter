@@ -131,6 +131,61 @@ class AuthService {
       return false;
     }
   }
+
+  Future<void> requestPasswordReset({required String email}) async {
+    try {
+      await _supabase.auth.resetPasswordForEmail(email, redirectTo: "io.supabase.flutter://");
+    } catch (e) {
+      _log.severe('Error in requestPasswordReset', e);
+      rethrow;
+    }
+  }
+
+  // Request OTP for password reset
+  Future<void> requestPasswordResetOtp({required String email}) async {
+    try {
+      await _supabase.auth.signInWithOtp(
+        email: email,
+        emailRedirectTo: 'io.supabase.flutter://', // Update with your redirect URL if needed
+      );
+    } catch (e) {
+      _log.severe('Error in requestPasswordResetOtp', e);
+      rethrow;
+    }
+  }
+
+  // Verify OTP for password reset
+  Future<bool> verifyPasswordResetOtp({required String email, required String otp}) async {
+    try {
+      final response = await _supabase.auth.verifyOTP(
+        email: email,
+        token: otp,
+        type: OtpType.recovery,
+      );
+      if (response.user != null) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      _log.severe('Error in verifyPasswordResetOtp', e);
+      return false;
+    }
+  }
+
+  // Update user password after OTP verification
+  Future<bool> updateUserPasswordAfterOtp({required String password}) async {
+    try {
+      final updates = UserAttributes(password: password);
+      final response = await _supabase.auth.updateUser(updates);
+      if (response.user != null) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      _log.severe('Error in updateUserPasswordAfterOtp', e);
+      return false;
+    }
+  }
 }
 
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
